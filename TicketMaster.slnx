@@ -1,8 +1,21 @@
 <Solution>
   <Folder Name="/src/" />
-  <Folder Name="/src/1.Core/" />
-  <Folder Name="/src/2.Infrastructure/" />
-  <Folder Name="/src/3.Endpoint/" />
-  <Folder Name="/src/4.Shared/" />
+  <Folder Name="/src/1.Core/">
+    <Project Path="src/1.Core/TicketMaster.Core.ApplicationService/TicketMaster.Core.ApplicationService.csproj" Id="56f33251-3123-4dca-af7f-e59af8bf45aa" />
+    <Project Path="src/1.Core/TicketMaster.Core.BuildingBlocks/TicketMaster.Core.BuildingBlocks.csproj" Id="005c96ef-87c7-490d-a352-05c24fd354df" />
+    <Project Path="src/1.Core/TicketMaster.Core.Contracts/TicketMaster.Core.Contracts.csproj" Id="6e84f036-9ee2-4bfe-9fca-97e76270832f" />
+    <Project Path="src/1.Core/TicketMaster.Core.Domain/TicketMaster.Core.Domain.csproj" Id="1eb22e13-08fe-455b-a3df-f11fdf850baf" />
+    <Project Path="src/1.Core/TicketMaster.Core.RequestResponse/TicketMaster.Core.RequestResponse.csproj" Id="430317d3-673e-442a-bb61-4b7f899d78d1" />
+  </Folder>
+  <Folder Name="/src/2.Infrastructure/">
+    <Project Path="src/2.Infrastructure/TicketMaster.Infrastructure.Data/TicketMaster.Infrastructure.Data.csproj" Id="5e5293de-810b-475e-9c9b-18c4328db54a" />
+    <Project Path="src/2.Infrastructure/TicketMaster.Infrastructure.Services/TicketMaster.Infrastructure.Services.csproj" Id="aa6320a1-d515-4604-a8a8-dae095a9ce90" />
+  </Folder>
+  <Folder Name="/src/3.Endpoint/">
+    <Project Path="src/3.Endpoint/TicketMaster.Endpoint.WebAPI/TicketMaster.Endpoint.WebAPI.csproj" Id="cc6790d6-e28e-40c8-8723-32a505c8b0e0" />
+  </Folder>
+  <Folder Name="/src/4.Shared/">
+    <Project Path="src/4.Shared/TicketMaster.Shared.Utilities/TicketMaster.Shared.Utilities.csproj" Id="fcfc5355-9257-4a96-8127-c6bffc849fc5" />
+  </Folder>
   <Folder Name="/tests/" />
 </Solution>
