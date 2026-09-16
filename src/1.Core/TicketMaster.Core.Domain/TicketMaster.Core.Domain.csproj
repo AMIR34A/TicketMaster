@@ -6,4 +6,9 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\4.Shared\TicketMaster.Shared.Utilities\TicketMaster.Shared.Utilities.csproj" />
+    <ProjectReference Include="..\TicketMaster.Core.BuildingBlocks\TicketMaster.Core.BuildingBlocks.csproj" />
+  </ItemGroup>
+
 </Project>
