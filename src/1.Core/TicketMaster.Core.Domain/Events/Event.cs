@@ -20,7 +20,7 @@ public class Event : AggregateRoot<int>
 
     private Event() { }
 
-    public Event Create(string title,
+    public static Event Create(string title,
         EventType type,
         EventStatus status,
         Duration durationMinute,
