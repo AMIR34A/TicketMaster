@@ -362,3 +362,10 @@ MigrationBackup/
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
 /src/3.Endpoint/TicketMaster.Endpoint.WebAPI/appsettings.Development.json
+
+#EF migrations
+Migrations
+/src/3.Endpoint/TicketMaster.Endpoint.WebAPI/appsettings.json
+/src/3.Endpoint/TicketMaster.Endpoint.WebAPI/appsettings.json
+/src/3.Endpoint/TicketMaster.Endpoint.WebAPI/appsettings.Development.json
+/src/3.Endpoint/TicketMaster.Endpoint.WebAPI/appsettings.Development.json
