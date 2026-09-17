@@ -17,5 +17,7 @@
   <Folder Name="/src/4.Shared/">
     <Project Path="src/4.Shared/TicketMaster.Shared.Utilities/TicketMaster.Shared.Utilities.csproj" Id="fcfc5355-9257-4a96-8127-c6bffc849fc5" />
   </Folder>
-  <Folder Name="/tests/" />
+  <Folder Name="/tests/">
+    <Project Path="tests/TicketMaster.UnitTests/TicketMaster.UnitTests.csproj" Id="dcb56831-8b82-494a-bcfe-93f2d7ba15c0" />
+  </Folder>
 </Solution>
