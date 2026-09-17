@@ -17,7 +17,7 @@ public readonly record struct Error
     public Error(string title, string description, int code, ErrorType type, string[]? parameters)
     {
         Title = title;
-        Description = ToString();
+        Description = description;
         Code = code;
         Type = type;
         Parameters = parameters;
@@ -56,8 +56,14 @@ public readonly record struct Error
         if (Parameters is null || Parameters.Length == 0)
             return Description;
 
-        StringBuilder errorMessage = new();
-        errorMessage.AppendFormat(Description, Parameters);
+        StringBuilder errorMessage = new(Description);
+
+        int paramIndex = 0;
+        for (int i = 0; i < Description.Length && paramIndex < Parameters.Length; i++)
+        {
+            if (char.IsDigit(Description[i]) && Description[i] - '0' == paramIndex)
+                errorMessage.Replace($"{{{paramIndex}}}", Parameters[paramIndex++]);
+        }
 
         return errorMessage.ToString();
     }
