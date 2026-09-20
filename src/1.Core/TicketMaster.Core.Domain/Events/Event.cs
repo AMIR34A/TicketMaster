@@ -1,4 +1,8 @@
 ﻿using TicketMaster.Core.BuildingBlocks.Entities;
+using TicketMaster.Core.Domain.Exceptions;
+using TicketMaster.Shared.Utilities.Exceptions;
+using TicketMaster.Shared.Utilities.Guards;
+using TicketMaster.Shared.Utilities.Guards.GuardClauses;
 
 namespace TicketMaster.Core.Domain.Events;
 
@@ -25,7 +29,13 @@ public class Event : AggregateRoot<int>
         EventStatus status,
         Duration durationMinute,
         Capacity capacity,
-        Guid ownerId) => new()
+        Guid ownerId)
+    {
+        Guard.ThrowExceptionIf.Empty(title, new DomainException(Error.Validation(parameters: [nameof(title)])));
+        Guard.ThrowExceptionIf.Null(durationMinute, new DomainException(Error.Validation(parameters: [nameof(durationMinute)])));
+        Guard.ThrowExceptionIf.Null(capacity, new DomainException(Error.Validation(parameters: [nameof(capacity)])));
+
+        return new()
         {
             Title = title,
             Type = type,
@@ -35,6 +45,6 @@ public class Event : AggregateRoot<int>
             Capacity = capacity,
             OwnerId = ownerId
         };
-
+    }
     public bool IsAvailable() => Status == EventStatus.OnSale;
 }

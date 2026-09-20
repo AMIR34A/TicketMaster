@@ -1,14 +1,16 @@
 ﻿using TicketMaster.Core.BuildingBlocks.Entities;
 using TicketMaster.Core.Domain.Exceptions;
 using TicketMaster.Shared.Utilities.Exceptions;
+using TicketMaster.Shared.Utilities.Guards;
+using TicketMaster.Shared.Utilities.Guards.GuardClauses;
 
 namespace TicketMaster.Core.Domain.Tickets;
 
 public class Ticket : AggregateRoot<int>
 {
-    public int Row { get; private set; }
+    public Row Row { get; private set; } = default!;
 
-    public int SeatNumber { get; private set; }
+    public SeatNumber SeatNumber { get; private set; } = default!;
 
     public TicketStatus Status { get; private set; }
 
@@ -21,20 +23,25 @@ public class Ticket : AggregateRoot<int>
     private Ticket() { }
 
     public static Ticket Create(int eventId,
-        int row,
-        int seatNumber) => new()
+        Row row,
+        SeatNumber seatNumber)
+    {
+        Guard.ThrowExceptionIf.Null(row, new DomainException(Error.Validation(parameters: [nameof(row)])));
+        Guard.ThrowExceptionIf.Null(seatNumber, new DomainException(Error.Validation(parameters: [nameof(seatNumber)])));
+
+        return new()
         {
             EventId = eventId,
             Row = row,
             SeatNumber = seatNumber,
             Status = TicketStatus.Available
         };
-
+    }
     public void Reserve(Guid reservedBy)
     {
         if (Status != TicketStatus.Available)
             throw new DomainException(Error.Failure(description: "Ticket with row: {0} and seat number: {1} was already {2}.",
-                parameters: [Row.ToString(), SeatNumber.ToString(), Status.ToString()]));
+                parameters: [Row.Value.ToString(), SeatNumber.Value.ToString(), Status.ToString()]));
 
         Status = TicketStatus.Reserved;
         BookedOrReservedBy = reservedBy;
@@ -45,7 +52,7 @@ public class Ticket : AggregateRoot<int>
     {
         if (Status == TicketStatus.Booked)
             throw new DomainException(Error.Failure(description: "Ticket with row: {0} and seat number: {1} was already booked.",
-                parameters: [Row.ToString(), SeatNumber.ToString()]));
+                parameters: [Row.Value.ToString(), SeatNumber.Value.ToString()]));
 
         Status = TicketStatus.Booked;
         BookedOrReservedBy = bookedBy;
