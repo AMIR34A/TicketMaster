@@ -20,6 +20,8 @@ public class Ticket : AggregateRoot<int>
 
     public int EventId { get; private set; }
 
+    public byte[] RowVersion { get; private set; } = default!;
+
     private Ticket() { }
 
     public static Ticket Create(int eventId,
@@ -50,6 +52,12 @@ public class Ticket : AggregateRoot<int>
 
     public void Book(Guid bookedBy)
     {
+        if (Status != TicketStatus.Reserved)
+            throw new DomainException(Error.Failure(description: "Ticket must be reserved before booking."));
+
+        if (BookedOrReservedBy != bookedBy)
+            throw new DomainException(Error.Failure(description: "Ticket is reserved by a different user."));
+
         if (Status == TicketStatus.Booked)
             throw new DomainException(Error.Failure(description: "Ticket with row: {0} and seat number: {1} was already booked.",
                 parameters: [Row.Value.ToString(), SeatNumber.Value.ToString()]));

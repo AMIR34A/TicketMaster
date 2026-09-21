@@ -33,5 +33,8 @@ internal class TicketConfiguration : IEntityTypeConfiguration<Ticket>
                .HasForeignKey(p => p.EventId)
                .IsRequired()
                .OnDelete(DeleteBehavior.Cascade);
+
+        builder.Property(p => p.RowVersion)
+               .IsRowVersion();
     }
 }
