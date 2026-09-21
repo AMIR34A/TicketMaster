@@ -15,6 +15,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\1.Core\TicketMaster.Core.Contracts\TicketMaster.Core.Contracts.csproj" />
     <ProjectReference Include="..\..\1.Core\TicketMaster.Core.Domain\TicketMaster.Core.Domain.csproj" />
   </ItemGroup>
 
