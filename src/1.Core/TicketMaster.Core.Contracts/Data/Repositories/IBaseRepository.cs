@@ -15,6 +15,10 @@ public interface IBaseRepository<TEntity, TId>
 
     Task InsertAsync(TEntity entity, CancellationToken cancellationToken = default);
 
+    void InsertRange(IEnumerable<TEntity> entities);
+
+    Task InsertRangeAsync(IEnumerable<TEntity> entities, CancellationToken cancellationToken = default);
+
     void Delete(TId id);
 
     void Delete(TEntity entity);

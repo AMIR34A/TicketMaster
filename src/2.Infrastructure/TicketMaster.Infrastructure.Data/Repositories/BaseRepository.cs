@@ -39,6 +39,10 @@ public class BaseRepository<TEntity, TDbContext, TId> : IBaseRepository<TEntity,
 
     public async Task InsertAsync(TEntity entity, CancellationToken cancellationToken = default) => await _dbContext.Set<TEntity>().AddAsync(entity, cancellationToken);
 
+    public void InsertRange(IEnumerable<TEntity> entities) => _dbContext.Set<TEntity>().AddRange(entities);
+
+    public Task InsertRangeAsync(IEnumerable<TEntity> entities, CancellationToken cancellationToken = default) => _dbContext.Set<TEntity>().AddRangeAsync(entities, cancellationToken);
+
     public void Delete(TId id)
     {
         TEntity? entity = _dbContext.Set<TEntity>().Find(id);
