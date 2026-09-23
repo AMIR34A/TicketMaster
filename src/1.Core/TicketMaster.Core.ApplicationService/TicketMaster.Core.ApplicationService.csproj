@@ -6,4 +6,13 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Folder Include="Services\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\2.Infrastructure\TicketMaster.Infrastructure.Services\TicketMaster.Infrastructure.Services.csproj" />
+    <ProjectReference Include="..\TicketMaster.Core.RequestResponse\TicketMaster.Core.RequestResponse.csproj" />
+  </ItemGroup>
+
 </Project>
