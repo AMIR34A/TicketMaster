@@ -7,11 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Services\" />
-    <Folder Include="Tickets\Queries\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\..\2.Infrastructure\TicketMaster.Infrastructure.Services\TicketMaster.Infrastructure.Services.csproj" />
     <ProjectReference Include="..\TicketMaster.Core.RequestResponse\TicketMaster.Core.RequestResponse.csproj" />
   </ItemGroup>
