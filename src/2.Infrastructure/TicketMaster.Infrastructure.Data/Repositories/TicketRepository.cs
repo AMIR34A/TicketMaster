@@ -10,6 +10,11 @@ public class TicketRepository : BaseRepository<Ticket, TicketMasterDbContext, in
     {
     }
 
+    public async Task<IEnumerable<Ticket>> GetTicketsByEventIdAsync(int eventId, CancellationToken cancellationToken = default) => await _dbContext.Set<Ticket>()
+        .Where(t => t.EventId == eventId)
+        .AsNoTracking()
+        .ToListAsync(cancellationToken);
+
     public async ValueTask<int> GetTicketsCountByEventIdAsync(int eventId,
         CancellationToken cancellationToken = default) => await _dbContext.Set<Ticket>()
         .CountAsync(t => t.EventId == eventId, cancellationToken);
