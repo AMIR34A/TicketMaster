@@ -39,11 +39,18 @@ public class Ticket : AggregateRoot<int>
             Status = TicketStatus.Available
         };
     }
-    public void Reserve(Guid reservedBy)
+
+    public void Reserve(Guid reservedBy, uint ticketReservationWaiting)
     {
-        if (Status != TicketStatus.Available)
-            throw new DomainException(Error.Failure(description: "Ticket with row: {0} and seat number: {1} was already {2}.",
-                parameters: [Row.Value.ToString(), SeatNumber.Value.ToString(), Status.ToString()]));
+        if (Status == TicketStatus.Booked)
+            throw new DomainException(Error.Failure(description: "Ticket with row: {0} and seat number: {1} was already booked.",
+                parameters: [Row.Value.ToString(), SeatNumber.Value.ToString()]));
+
+        if (Status == TicketStatus.Reserved
+            && BookedOrReservedAtUtc.HasValue
+            && (BookedOrReservedAtUtc - DateTime.UtcNow).Value.Minutes < ticketReservationWaiting)
+            throw new DomainException(Error.Failure(description: "Ticket with row: {0} and seat number: {1} was already reserved.",
+                parameters: [Row.Value.ToString(), SeatNumber.Value.ToString()]));
 
         Status = TicketStatus.Reserved;
         BookedOrReservedBy = reservedBy;
@@ -52,15 +59,15 @@ public class Ticket : AggregateRoot<int>
 
     public void Book(Guid bookedBy)
     {
+        if (Status == TicketStatus.Booked)
+            throw new DomainException(Error.Failure(description: "Ticket with row: {0} and seat number: {1} was already booked.",
+                parameters: [Row.Value.ToString(), SeatNumber.Value.ToString()]));
+
         if (Status != TicketStatus.Reserved)
             throw new DomainException(Error.Failure(description: "Ticket must be reserved before booking."));
 
         if (BookedOrReservedBy != bookedBy)
             throw new DomainException(Error.Failure(description: "Ticket is reserved by a different user."));
-
-        if (Status == TicketStatus.Booked)
-            throw new DomainException(Error.Failure(description: "Ticket with row: {0} and seat number: {1} was already booked.",
-                parameters: [Row.Value.ToString(), SeatNumber.Value.ToString()]));
 
         Status = TicketStatus.Booked;
         BookedOrReservedBy = bookedBy;
