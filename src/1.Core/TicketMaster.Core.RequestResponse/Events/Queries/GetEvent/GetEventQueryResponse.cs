@@ -2,7 +2,8 @@
 
 namespace TicketMaster.Core.RequestResponse.Events.Queries.GetEvent;
 
-public sealed record GetEventQueryResponse(string Title,
+public sealed record GetEventQueryResponse(int Id,
+    string Title,
     EventType Type,
     EventStatus Status,
     DateTime DateTimeUtc,

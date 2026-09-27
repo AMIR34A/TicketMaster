@@ -24,7 +24,8 @@ public class GetEventQueryHandler : IRequestHandler<GetEventQuery, GetEventQuery
             throw new ApplicationServiceException(Error.NotFound(description: "The event with id:{0} was not found.",
                 parameters: [request.EventId.ToString()]));
 
-        return new(@event.Title,
+        return new(@event.Id,
+            @event.Title,
             @event.Type,
             @event.Status,
             @event.DateTimeUtc,
