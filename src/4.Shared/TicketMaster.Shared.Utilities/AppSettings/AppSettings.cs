@@ -2,4 +2,5 @@
 
 public class AppSettings
 {
+    public required uint TicketReservationWaiting { get; set; }
 }
