@@ -5,7 +5,9 @@ using RedLockNet;
 using RedLockNet.SERedis;
 using RedLockNet.SERedis.Configuration;
 using StackExchange.Redis;
+using TicketMaster.Core.Contracts.Data.Repositories;
 using TicketMaster.Infrastructure.Data;
+using TicketMaster.Infrastructure.Data.Repositories;
 
 namespace TicketMaster.Infrastructure.Services;
 
@@ -35,7 +37,8 @@ public static class DependencyInjection
             return RedLockFactory.Create(multiplexers);
         });
 
-        services.AddMemoryCache();
+        services.AddScoped<IEventRepository, EventRepository>();
+        services.AddScoped<ITicketRepository, TicketRepository>();
 
         return services;
     }

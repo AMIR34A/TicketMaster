@@ -1,4 +1,5 @@
-﻿using TicketMaster.Infrastructure.Services;
+﻿using TicketMaster.Core.ApplicationService;
+using TicketMaster.Infrastructure.Services;
 using TicketMaster.Shared.Utilities.AppSettings;
 
 namespace TicketMaster.Endpoint.WebAPI;
@@ -10,7 +11,7 @@ public static class DependencyInjection
         services.Configure<AppSettings>(configuration.GetSection("AppSettings"));
 
         services.ConfigureInfrastructure(configuration);
-        //services.ConfigureApplicationService(configuration);
+        services.ConfigureApplicationService(configuration);
 
         return services;
     }
