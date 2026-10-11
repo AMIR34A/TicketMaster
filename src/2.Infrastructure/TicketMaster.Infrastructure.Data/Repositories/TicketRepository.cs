@@ -18,4 +18,7 @@ public class TicketRepository : BaseRepository<Ticket, TicketMasterDbContext, in
     public async ValueTask<int> GetTicketsCountByEventIdAsync(int eventId,
         CancellationToken cancellationToken = default) => await _dbContext.Set<Ticket>()
         .CountAsync(t => t.EventId == eventId, cancellationToken);
+
+    public async ValueTask<int> GetReservedTicketsCountAsync(int eventId, CancellationToken cancellationToken = default) => await _dbContext.Set<Ticket>()
+        .CountAsync(t => t.EventId == eventId && t.Status == TicketStatus.Reserved, cancellationToken);
 }

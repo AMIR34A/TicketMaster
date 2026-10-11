@@ -8,4 +8,5 @@ public interface ITicketRepository : IBaseRepository<Ticket, int>, IUnitOfWork
 
     ValueTask<int> GetTicketsCountByEventIdAsync(int eventId, CancellationToken cancellationToken = default);
 
+    ValueTask<int> GetReservedTicketsCountAsync(int eventId, CancellationToken cancellationToken = default);
 }
