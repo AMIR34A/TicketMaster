@@ -37,3 +37,8 @@ public abstract class AggregateRoot<TId> : Entity<TId>, IAggregateRoot
         onMethod?.Invoke(this, new[] { @event });
     }
 }
+
+public abstract class AggregateRoot : AggregateRoot<int>
+{
+
+}
