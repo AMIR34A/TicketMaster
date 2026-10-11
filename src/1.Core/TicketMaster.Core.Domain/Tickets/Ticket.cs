@@ -1,4 +1,5 @@
 ﻿using TicketMaster.Core.BuildingBlocks.Entities;
+using TicketMaster.Core.Domain.Events;
 using TicketMaster.Core.Domain.Exceptions;
 using TicketMaster.Shared.Utilities.Exceptions;
 using TicketMaster.Shared.Utilities.Guards;
@@ -40,7 +41,7 @@ public class Ticket : AggregateRoot<int>
         };
     }
 
-    public void Reserve(Guid reservedBy, uint ticketReservationWaiting)
+    public void Reserve(Guid reservedBy, Capacity capacity, int reserved, uint ticketReservationWaiting)
     {
         if (Status == TicketStatus.Booked)
             throw new DomainException(Error.Failure(description: "Ticket with row: {0} and seat number: {1} was already booked.",
@@ -55,6 +56,9 @@ public class Ticket : AggregateRoot<int>
         Status = TicketStatus.Reserved;
         BookedOrReservedBy = reservedBy;
         BookedOrReservedAtUtc = DateTime.UtcNow;
+
+        if (capacity.Value == reserved + 1)
+            AddEvent(new TicketsSoldOut(EventId, reserved));
     }
 
     public void Book(Guid bookedBy)
