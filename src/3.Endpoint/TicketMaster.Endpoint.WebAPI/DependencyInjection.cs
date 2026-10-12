@@ -1,4 +1,5 @@
 ﻿using TicketMaster.Core.ApplicationService;
+using TicketMaster.Endpoint.WebAPI.Endpoints;
 using TicketMaster.Infrastructure.Services;
 using TicketMaster.Shared.Utilities.AppSettings;
 
@@ -14,5 +15,17 @@ public static class DependencyInjection
         services.ConfigureApplicationService(configuration);
 
         return services;
+    }
+
+    public static void MapEndpoints(this WebApplication app)
+    {
+        var assembly = typeof(IEndpoint).Assembly;
+
+        var endpoints = assembly.DefinedTypes
+            .Where(t => !t.IsAbstract && !t.IsInterface && t.IsAssignableTo(typeof(IEndpoint)))
+            .Select(t => (IEndpoint)Activator.CreateInstance(t.AsType())!).ToArray();
+
+        foreach (var endpoint in endpoints)
+            endpoint.Register(app);
     }
 }
